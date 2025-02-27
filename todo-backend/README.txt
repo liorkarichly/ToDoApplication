@@ -58,11 +58,6 @@ todo-backend/
 
 ### 1️⃣ **Clone the Repository**
 ```bash
-cd todo-backend
-```
-
-### 2️⃣ **Install Dependencies**
-```bash
 npm install
 ```
 
