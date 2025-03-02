@@ -1,0 +1,78 @@
+<mat-card class="task-list-container">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 task-table">
+    
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef class="table-header">Task</th>
+      <td mat-cell *matCellDef="let task" class="table-cell">
+        <mat-form-field appearance="outline" class="task-input" *ngIf="task._id === editingTaskId">
+          <input matInput [(ngModel)]="task.title" />
+        </mat-form-field>
+        <span *ngIf="task._id !== editingTaskId">{{ task.title }}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef class="table-header">Status</th>
+      <td mat-cell *matCellDef="let task" class="table-cell">
+        <mat-form-field appearance="outline" *ngIf="task._id === editingTaskId">
+          <mat-select [(ngModel)]="task.isCompleted">
+            <mat-option [value]="false">Not Completed</mat-option>
+            <mat-option [value]="true">Completed</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <span *ngIf="task._id !== editingTaskId">{{ task.isCompleted ? 'Completed' : 'Not Completed' }}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="priority">
+      <th mat-header-cell *matHeaderCellDef class="table-header">Priority</th>
+      <td mat-cell *matCellDef="let task" class="table-cell">
+        <mat-form-field appearance="outline" *ngIf="task._id === editingTaskId">
+          <mat-select [(ngModel)]="task.priority" required #priorityInput="ngModel">
+            <mat-option *ngFor="let option of priorityOptions" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <span *ngIf="task._id !== editingTaskId">{{ task.priority }}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="dueDate">
+      <th mat-header-cell *matHeaderCellDef class="table-header">Due Date</th>
+      <td mat-cell *matCellDef="let task" class="table-cell">
+        <mat-form-field appearance="outline" *ngIf="task._id === editingTaskId">
+          <input matInput [matDatepicker]="picker" [(ngModel)]="task.dueDate" [min]="minDate"/>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <span *ngIf="task._id !== editingTaskId">{{ task.dueDate | date:'MM/dd/yyyy' }}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef class="table-header">Actions</th>
+      <td mat-cell *matCellDef="let task" class="table-cell">
+        <ng-container *ngIf="task._id !== editingTaskId">
+          <button mat-icon-button color="primary" class="action-button" (click)="startEditing(task)">
+            <mat-icon style="color: green;">edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" class="action-button" (click)="deleteTask(task)">
+            <mat-icon style="color: red;">delete</mat-icon>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="task._id === editingTaskId">
+          <button mat-icon-button color="accent" class="action-button" (click)="finishEditing(task)">
+            <mat-icon style="color: green;">check</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" class="action-button" (click)="cancelEditing(task)">
+            <mat-icon style="color: red;">close</mat-icon>
+          </button>
+        </ng-container>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns" class="table-header-row"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
+  </table>
+</mat-card>

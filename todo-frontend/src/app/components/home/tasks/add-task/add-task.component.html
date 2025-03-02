@@ -1,0 +1,34 @@
+<mat-card class="task-form-container">
+  <mat-card-content>
+    <div class="task-form">
+      <mat-form-field appearance="outline" class="task-input">
+        <mat-label>New Task</mat-label>
+        <input matInput [(ngModel)]="newTitle" required #taskInput="ngModel" />
+        <mat-error *ngIf="taskInput.invalid && taskInput.touched">Task title is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="task-select">
+        <mat-label>Priority</mat-label>
+        <mat-select [(ngModel)]="newPriority" required #priorityInput="ngModel">
+           <mat-option *ngFor="let option of priorityOptions" [value]="option">
+              {{ option }}
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="priorityInput.invalid && priorityInput.touched">Priority is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="task-datepicker">
+        <mat-label>Due Date</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="newDueDate" required #dateInput="ngModel" [min]="minDate" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="dateInput.invalid && dateInput.touched">Due date is required</mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" class="task-add-button" (click)="addTask()"
+              [disabled]="taskInput.invalid || priorityInput.invalid || dateInput.invalid">
+        Add Task
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>

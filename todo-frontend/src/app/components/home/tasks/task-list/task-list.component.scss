@@ -1,0 +1,47 @@
+/* Ensure rows remain evenly aligned in height */
+.table-row {
+  height: 60px; /* Fixed height for all rows */
+  border-bottom: 1px solid #ccc;
+}
+
+/* Clear and sharp styling for headers */
+th.mat-header-cell {
+  font-weight: bold;
+  text-align: left;
+  background-color: #eeeeee;
+  padding: 14px;
+  border-bottom: 2px solid #aaa;
+}
+
+/* Maintain consistent spacing between columns */
+td.mat-cell {
+  padding: 14px;
+  white-space: nowrap; /* Prevent line breaks */
+  text-align: left;
+}
+
+/* Subtle hover effect */
+.table-row:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Adjust button styling */
+button.mat-icon-button {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Clear and visible icon size */
+button.mat-icon-button mat-icon {
+  font-size: 24px;
+}
+
+/* Align buttons properly in the Actions column */
+td.mat-cell:last-child {
+  display: flex;
+  gap: 10px;
+}
+

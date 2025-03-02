@@ -1,0 +1,49 @@
+<mat-card style="direction: ltr; text-align: left;">
+  <mat-card-title>Login</mat-card-title>
+  <mat-card-content>
+    <form (ngSubmit)="onLogin()">
+      <mat-form-field appearance="outline" style="display: block; margin-bottom: 1rem;">
+        <mat-label>Email</mat-label>
+        <input 
+          matInput 
+          type="email" 
+          required 
+          [(ngModel)]="email" 
+          name="email" 
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" style="display: block; margin-bottom: 1rem;">
+        <mat-label>Password</mat-label>
+        <input 
+          matInput 
+          type="password" 
+          required 
+          [(ngModel)]="password" 
+          name="password"
+        />
+      </mat-form-field>
+
+      <button 
+        mat-raised-button 
+        color="primary" 
+        style="margin-right: 8px;"
+      >
+        Login
+      </button>
+
+      <button 
+        mat-raised-button 
+        color="accent" 
+        (click)="goToRegister()"
+        type="button" 
+      >
+        Register
+      </button>
+    </form>
+
+    <div *ngIf="errorMsg" style="color: red; margin-top: 1rem;">
+      {{ errorMsg }}
+    </div>
+  </mat-card-content>
+</mat-card>

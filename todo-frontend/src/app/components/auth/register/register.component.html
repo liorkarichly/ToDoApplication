@@ -1,0 +1,43 @@
+<mat-card class="auth-card">
+    <mat-card-title>Register</mat-card-title>
+    <mat-card-content>
+      <form (ngSubmit)="onRegister()">
+        <mat-form-field appearance="outline" style="display:block; margin-bottom: 1rem;">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            type="email"
+            required
+            name="email"
+            [(ngModel)]="email"
+          />
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline" style="display:block; margin-bottom: 1rem;">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            type="password"
+            required
+            name="password"
+            [(ngModel)]="password"
+          />
+        </mat-form-field>
+  
+        <button mat-raised-button color="primary">Register</button>
+      </form>
+  
+      <div *ngIf="successMsg" style="color: green; margin-top: 1rem;">
+        {{ successMsg }}
+      </div>
+  
+      <div *ngIf="errorMsg" style="color: red; margin-top: 1rem;">
+        {{ errorMsg }}
+      </div>
+  
+      <div style="margin-top:1rem;">
+        <a routerLink="/login">Already have an account? Login here</a>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  
