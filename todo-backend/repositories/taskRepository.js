@@ -27,7 +27,8 @@ class TaskRepository {
   async getById(id) {
     try {
       const task = await Task.findById(id);
-      if (!task) logger.warn(`⚠️ Task not found (ID: ${id})`);
+      if (!task) {logger.warn(`⚠️ Task not found (ID: ${id})`);}
+      logger.info("✅ Task: ", task);
       return task;
     } catch (error) {
       logger.error(`❌ Error retrieving task (ID: ${id})`, { error });
@@ -60,14 +61,25 @@ class TaskRepository {
    */
   async update(id, updateData) {
     try {
+      const task = await Task.findById(id);
+      if (!task) {
+          logger.warn(`⚠️ Task not found before updating (ID: ${id})`);
+          return null;
+      }
+
       const updatedTask = await Task.findByIdAndUpdate(id, updateData, { new: true });
-      if (!updatedTask) logger.warn(`⚠️ Task not found for update (ID: ${id})`);
-      else logger.info("🔄 Task updated", updatedTask);
+
+      if (!updatedTask) {
+          logger.warn(`⚠️ Task not found for update (ID: ${id})`);
+      } else {
+          logger.info("🔄 Task updated", updatedTask);
+      }
+
       return updatedTask;
-    } catch (error) {
+  } catch (error) {
       logger.error(`❌ Error updating task (ID: ${id})`, { error });
       throw error;
-    }
+  }
   }
 
   /**

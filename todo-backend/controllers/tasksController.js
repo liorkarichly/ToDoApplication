@@ -60,7 +60,7 @@ async function updateTask(req, res) {
     const { id } = req.params;
     const { title, isCompleted, priority, dueDate } = req.body;
     const userId = req.userId; // from authMiddleware
-
+    
     // Check if the task exists
     const task = await TaskRepository.getById(id);
     if (!task) {
@@ -74,18 +74,14 @@ async function updateTask(req, res) {
       return res.status(403).json({ message: 'Task is locked for editing by another user' });
     }
 
-    if (priority) {
-      priority = priority.toLowerCase();
-    }
-
-    const updatedTask = await TaskRepository.update(id, { title, isCompleted, priority, dueDate });
+     const updatedTask = await TaskRepository.update(id, { title, isCompleted, priority, dueDate });
 
 
     // Emit an event about the updated task
     getIO().emit('taskUpdated', updatedTask);
-    logger.info("Task updated", updatedTask);
     res.status(200).json(updatedTask);
   } catch (error) {
+    logger.error("Failed to update task", error);
     res.status(500).json({ message: 'Failed to update task', error });
   }
 }

@@ -3,7 +3,7 @@ const userRepository = require('../repositories/userRepository');
 require('dotenv').config();
 const logger = require('../utils/logger'); 
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
+const JWT_SECRET = process.env.JWT_SECRET || 'your-super-secret-key';
 logger.warn("🔹 Loaded JWT_SECRET:", JWT_SECRET); // ✅ Logs the JWT secret status (without exposing it)
 
 /**
